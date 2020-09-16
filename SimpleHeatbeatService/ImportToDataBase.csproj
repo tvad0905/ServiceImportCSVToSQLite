@@ -104,7 +104,6 @@
     <Compile Include="Models\ThongSoDuLieuModel.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Service\DataBaseFile.cs" />
     <Compile Include="Service\FileLogReader.cs" />
   </ItemGroup>
   <ItemGroup>
