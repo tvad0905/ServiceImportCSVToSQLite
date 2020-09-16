@@ -1,5 +1,6 @@
 ﻿using Microsoft.Data.Sqlite;
 using SimpleHeatbeatService.Models;
+using SimpleHeatbeatService.Service;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
@@ -69,36 +70,15 @@ namespace ImportToDataBase
         /// <param name="e"></param>
         private void OnCreated(object sender, FileSystemEventArgs e)
         {
-
             try
             {
                 Thread.Sleep(2000);
-                StreamReader reader = new StreamReader(e.FullPath);
-                string paragraph = reader.ReadToEnd();
-
                 SqliteConnection sqlite_conn = new SqliteConnection(ConfigurationManager.AppSettings["pathOfDB"]);
                 sqlite_conn.Open();
-
-                DataTable dt = new DataTable();
-                dt.Columns.Add("Tagname", typeof(string));
-                dt.Columns.Add("TimeStamp", typeof(string));
-                dt.Columns.Add("Value", typeof(string));
-                dt.Columns.Add("DataQuality", typeof(string));
-
-                string[] lines = paragraph.Split('\n');
-
+                string[] lines = FileLogReader.ReadAllLine(e.FullPath);
                 for (int i = 1; i < lines.Length - 1; i++)
                 {
                     string[] rows = lines[i].Split(',');
-                    //string ins = "insert into SampleTable(Thoi_gian,Thiet_bi,Ten_du_lieu,Don_vi_do,Dia_chi,Trang_thai,Gia_tri) " +
-                    //    "values('" + DateTime.Parse(words[0]) + "','" + words[1] + "','" + words[2] + "','" + words[3] + "','" + words[4] + "'," + int.Parse(words[5]) + "," + int.Parse(words[6]) + ")";
-                    //var cmd = new SqliteCommand(sqlite_conn.ToString());
-                    //cmd = sqlite_conn.CreateCommand();
-                    //cmd.CommandText = ins;
-                    //cmd.ExecuteNonQuery();
-
-
-
                     ThongSoDuLieuModel thongSoDuLieu = ConvertArrayToThongSoDuLieu(rows);
 
                     SqliteCommand cmd = new SqliteCommand();
@@ -113,14 +93,11 @@ namespace ImportToDataBase
                     cmd.Parameters.Add(new SqliteParameter("@Trang_thai", thongSoDuLieu.Trang_thai));
                     cmd.Parameters.Add(new SqliteParameter("@Gia_tri", thongSoDuLieu.Gia_tri));
 
-                    sqlite_conn.Open();
+                   
                     cmd.ExecuteNonQuery();
                 }
-                Console.WriteLine($"File:  create to {e.FullPath}");
-                reader.Close();
                 sqlite_conn.Close();
             }
-
             catch (Exception ex)
             {
                 Console.WriteLine("source" + ex.Source);
@@ -128,6 +105,11 @@ namespace ImportToDataBase
                 Console.WriteLine("Target" + ex.TargetSite);
             }
         }
+        /// <summary>
+        ///Chuyển 1 dòng csv đọc được về Thông số dữ liệu model 
+        /// </summary>
+        /// <param name="rows">1 dòng nhận được từ file csv</param>
+        /// <returns>1 đối tượng thông số dữ liệu hoàn chỉnh</returns>
         private ThongSoDuLieuModel ConvertArrayToThongSoDuLieu(string[] rows)
         {
             ThongSoDuLieuModel thongSoDuLieu = new ThongSoDuLieuModel();
