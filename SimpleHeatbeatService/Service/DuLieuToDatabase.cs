@@ -56,14 +56,23 @@ namespace SimpleHeatbeatService.Service
         /// <returns>1 đối tượng thông số dữ liệu hoàn chỉnh</returns>
         private static ThongSoDuLieuModel ConvertArrayToThongSoDuLieu(string[] rows)
         {
+            int indexDauChamCuoiCung = rows[0].IndexOf('.');
+            int chieuDaiTagName = rows[0].Length;
+            string tenDuLieu = rows[0].Substring(indexDauChamCuoiCung);
+            string diemDo = rows[0].Substring(0, chieuDaiTagName - indexDauChamCuoiCung);
+            string thoiGian = rows[1];
+            string giaTri = rows[2];
+            string trangThaiTiHieu = rows[3];
+            
+
             ThongSoDuLieuModel thongSoDuLieu = new ThongSoDuLieuModel();
-            thongSoDuLieu.Thoi_gian = rows[0];
-            thongSoDuLieu.Thiet_bi = rows[1];
-            thongSoDuLieu.Ten_du_lieu = rows[2];
-            thongSoDuLieu.Don_vi_do = rows[3];
-            thongSoDuLieu.Dia_chi = rows[4];
-            thongSoDuLieu.Trang_thai = rows[5];
-            thongSoDuLieu.Gia_tri = rows[6];
+            thongSoDuLieu.Thiet_bi = diemDo;
+            thongSoDuLieu.Thoi_gian = thoiGian;
+            thongSoDuLieu.Ten_du_lieu = tenDuLieu;
+            thongSoDuLieu.Don_vi_do = "de rong";
+            thongSoDuLieu.Dia_chi = "de rong";
+            thongSoDuLieu.Trang_thai = trangThaiTiHieu;
+            thongSoDuLieu.Gia_tri = giaTri;
             return thongSoDuLieu;
         }
     }
