@@ -71,3 +71,5 @@ C:\Users\admin\Source\Repos\ServiceImportCSVToSQLite\SimpleHeatbeatService\obj\D
 C:\Users\admin\Source\Repos\ServiceImportCSVToSQLite\SimpleHeatbeatService\obj\Debug\ImportToDataBase.csproj.CopyComplete
 C:\Users\admin\Source\Repos\ServiceImportCSVToSQLite\SimpleHeatbeatService\obj\Debug\SimpleHeatbeatService.exe
 C:\Users\admin\Source\Repos\ServiceImportCSVToSQLite\SimpleHeatbeatService\obj\Debug\SimpleHeatbeatService.pdb
+C:\Users\admin\Source\Repos\ServiceImportCSVToSQLite\SimpleHeatbeatService\bin\Debug\Newtonsoft.Json.dll
+C:\Users\admin\Source\Repos\ServiceImportCSVToSQLite\SimpleHeatbeatService\bin\Debug\Newtonsoft.Json.xml

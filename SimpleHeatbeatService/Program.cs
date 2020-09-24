@@ -13,9 +13,9 @@ namespace ImportToDataBase
         {
             var exitCode = HostFactory.Run(x =>
             {
-                x.Service<CSVFileImportToDataBase>(S =>
+                x.Service<ImportToDataBase>(S =>
                 {
-                    S.ConstructUsing(importToDB => new CSVFileImportToDataBase());
+                    S.ConstructUsing(importToDB => new ImportToDataBase());
                     S.WhenStarted(importToDB => importToDB.Start());
                     S.WhenStopped(importToDB => importToDB.Stop());
                 });
